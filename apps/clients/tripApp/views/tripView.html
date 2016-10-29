@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <title>Trip App</title>
+		
+		<!-- Angular Material style sheet -->
+		<link rel="stylesheet" href="../../../../lib/angular-material.min.css">
+		
+		  <!-- Angular Material requires Angular.js Libraries -->
+		<script type="text/javascript" src="../../../../lib/angular.min.js"></script>
+		<script type="text/javascript" src="../../../../lib/angular-animate.min.js"></script>
+		<script type="text/javascript" src="../../../../lib/angular-aria.min.js"></script>
+		<script type="text/javascript" src="../../../../lib/angular-messages.min.js"></script>
+
+		<!-- Angular Material Library -->
+		<script src="../../../../lib/angular-material.min.js"></script>
+  	
+		<!-- Trip Module  -->
+		<script type="text/javascript" src="../tripApp.js"></script>
+		<script type="text/javascript" src="../controllers/tripControllers.js"></script>
+		<script type="text/javascript" src="../services/tripServices.js"></script>
+		<script type="text/javascript" src="../services/tripServicesHelper.js"></script>
+		<!-- Site style sheet  -->
+		<link rel="stylesheet" href="tripView.css">
+
+    </head>
+    <body>
+	
+	<div ng-app='tripApp' ng-controller='tripController' layout="column" layout-align="center center">
+	
+	<div layout="row" layout-align="left">
+			
+		<div layout="column">
+			<div layout="row">
+				<md-input-container >
+				<H3>Trip Sorter</H3>
+				<P>Select a <I>Departure</I> city and <I>Arrival</I> city to plan your journey!<BR/><BR/>
+				Make use of the quick filters to find the <B>best</B> options.
+				</md-input-container>
+			</div>	
+			
+			<div layout="column">
+			<md-card layout-padding style="min-width: 700px;">
+			<div layout="row" layout-align="start center">
+				<div flex=45 layout-align="start center">			
+					<md-input-container >
+					<label>From:</label>
+					<md-select ng-model="source" style="min-width: 275px;" ng-change="reset(false)">
+					<md-option ng-repeat="dep in vm.departures" value="{{dep}}">{{dep}}</md-option>
+					</md-select>
+					</md-input-container>
+				</div>
+				<div flex=10 layout-align="start center"><md-button class="md-accent md-raised md-fab md-mini md-hue-1"><-></md-button></div>
+				<div flex=45 layout-align="start center">			
+				<md-input-container flex >
+				<label>To:</label>
+				<md-select ng-model="destination" style="min-width: 275px;" ng-change="reset(false)">
+					<md-option ng-repeat="arr in vm.arrivals" value="{{arr}}">{{arr}}</md-option>
+				</md-select>
+				</md-input-container></div>
+				</div>
+			
+			<div layout="row" layout-align="start center">
+				<div flex=60 layout-align="start center">    
+					<md-radio-group ng-model="type" layout="row" ng-value="Cheapest" ng-change="updateResult(type)">
+					<md-radio-button value="Cheapest" > Cheapest </md-radio-button>
+					<md-radio-button value="Fastest"> Fastest </md-radio-button>
+					<md-radio-button value="All" ng-disabled="true"> All({{trip.total}})</md-radio-button>
+					</md-radio-group>
+				</div>
+				<div flex=20 layout-align="start center"><md-button class="md-raised" ng-click="reset(true)">RESET</md-button></div>
+				<div flex=20 layout-align="start center"><md-button ng-click="search(source,destination,type)" class="md-raised md-primary" ng-disabled="source==undefined||destination==undefined">SEARCH</md-button></div>
+			</div>
+			</md-card>
+			</div>
+			<div layout="row" ng-if="trip.length">
+				<div layout="column">
+				<md-card layout-padding style="min-width: 700px;">
+				<div layout="column" >
+					<md-list-item ng-repeat="item1 in trip" >
+					
+					<div class="md-list-item-text" md-colors="{background: 'grey-100'}" style="min-width: 300px;" >					
+						<md-card style="min-width: 300px;">
+						<div layout="column" >
+						<div layout="row">						
+							<div layout-align="start start" flex=70 layout-padding >{{ item1.departure }} > {{ item1.arrival }}</div>
+							<div layout-align="end end" flex=30 layout-padding > {{ item1.calcCost }} EUR</div>
+						</div>
+							<div layout-align="start start" layout-padding >{{ item1.transport }}<I>{{ item1.reference }}</I>for {{ item1.formatedTime }}</div>
+						</div>						
+						</md-card>			
+					</div>
+					</md-list-item>	
+						
+					<md-list-item >
+					<div class="md-list-item-text" md-colors="{background: 'grey-100'}" style="min-width: 300px;">					
+						<md-card style="min-width: 300px;">
+						<div layout="column" >
+						<div layout="row" flex>						
+							<div layout-align="start start" layout-padding flex=45><B>Total</div>
+							<div layout-align="start start" layout-padding flex=30>{{ totalTime }} </div>
+							<div layout-align="end start" layout-padding flex=35 > {{ totalCost }} EUR</B></div>
+						</div>
+						</md-card>			
+						</div>
+					</div>
+					</md-list-item>					
+					
+				</div>
+			</md-card>
+			
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+
+	</body>
+</html>   

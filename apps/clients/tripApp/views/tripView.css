@@ -1,0 +1,32 @@
+.md-button.md-cornered {
+    border-radius: 3px 3px 3px 3px;
+}
+
+.md-button.md-raised.md-red:not([disabled]) {
+    position: right !important;
+    background-color: rgb(255, 0, 0);
+	color:rgb(255,255,255);
+}
+
+.md-button.md-raised.md-red:not([disabled]):hover {
+    position: right !important;
+    background-color: rgb(255, 0, 0);
+	color:rgb(0,0,0);
+}
+
+.md-button.md-raised.md-green:not([disabled]) {
+    position: right !important;
+    background-color: rgb(92,184,92);
+	color:rgb(255,255,255);
+}
+
+.md-button.md-raised.md-green:not([disabled]):hover {
+    position: right !important;
+    background-color: rgb(92,184,92);
+	color:rgb(0,0,0);
+}
+
+.md-bgcolor-red {
+	background-color: rgb(255, 0, 0);
+	color:rgb(255,255,255);
+}
